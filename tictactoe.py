@@ -8,7 +8,6 @@ tour = True
 win_X = False
 win_O = False
 fini = False
-diago = 0
 
 #______(2)AFFICHAGE DU TABLEAU
 def affichage():#création d'une fonction
@@ -84,11 +83,7 @@ def vérification():
             if combo < combo_max:
                 combo=0
                 if combo < combo_max and win_O == False and win_X == False:
-                    if j > 0 :
-                        diago = 1
-                    else :
-                        diago = 0
-                    case = tableau[i+j*taille_x+diago]
+                    case = tableau[i+j*taille_x+j]
                     if combo == 0 :
                         if case != 0 :
                             combo = combo+1

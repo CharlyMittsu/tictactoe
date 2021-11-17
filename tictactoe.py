@@ -5,8 +5,8 @@ taille_y = 3
 combo_max = 3 #3 pour un tictactoe; 4 pour un puissance 4
 
 tour = True
-win_O = False
 win_X = False
+win_O = False
 fini = False
 
 #______(2)AFFICHAGE DU TABLEAU

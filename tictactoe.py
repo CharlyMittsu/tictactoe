@@ -8,6 +8,7 @@ tour = True
 win_X = False
 win_O = False
 fini = False
+diago = 0
 
 #______(2)AFFICHAGE DU TABLEAU
 def affichage():#création d'une fonction
@@ -68,7 +69,7 @@ def vérification():
                         if case != 0 :
                             combo = combo+1
                     else :
-                        if case == tableau[case-taille_x] :
+                        if case == tableau[case-1] :
                             combo = combo+1
                         else :
                             combo = 0
@@ -78,6 +79,28 @@ def vérification():
                     win_O = True
 
 #____________(4.3)Verification diagonale
+    for i in range (0,taille_x-(taille_y-1)):#on peut pas jouer avec des tableaux verticaux
+        for j in range (0,taille_x):
+            if combo < combo_max:
+                combo=0
+                if combo < combo_max and win_O == False and win_X == False:
+                    if j > 0 :
+                        diago = 1
+                    else :
+                        diago = 0
+                    case = tableau[i+j*taille_x+diago]
+                    if combo == 0 :
+                        if case != 0 :
+                            combo = combo+1
+                    else :
+                        if case == tableau[case-1] :
+                            combo = combo+1
+                        else :
+                            combo = 0
+                elif case == 1:
+                    win_X = True
+                elif case == 2:
+                    win_O = True
 
 #______(5)Verification grille complète
     fini = True

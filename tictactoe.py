@@ -1,7 +1,15 @@
 #______(1)DECLARATIONS DES VARIABLES
-tableau = [0,0,0,0,0,0,0,0,0]
+tableau = []
 taille_x = 3
 taille_y = 3
+for i in range(taille_x*taille_y) :
+    tableau.append(0)
+if taille_x >= taille_y:#determiner si le tableau est horizontale/carrée ou verticale
+    grand = taille_x
+    petit = taille_y
+else :
+    grand = taille_y
+    petit = taille_x
 combo_max = 3 #3 pour un tictactoe; 4 pour un puissance 4
 
 tour = True
@@ -35,26 +43,25 @@ def jeu(x):
     
 #______(4)Verification victoire
 #____________(4.1)Verification ligne verticale
-def vérification():
+def verification():
     for i in range (0,taille_x):
         
         if combo < combo_max:
             combo=0
             for j in range (0,taille_y):
-                if combo < combo_max and win_O == False and win_X == False:
-                    case = tableau[j*taille_x+i]
-                    if combo == 0 :
-                        if case != 0 :
-                            combo = combo+1
+                case = tableau[j*taille_x+i]
+                if combo == 0 :
+                    if case != 0 :
+                        combo = combo+1
+                else :
+                    if case == tableau[case-taille_x] :
+                        combo = combo+1
                     else :
-                        if case == tableau[case-taille_x] :
-                            combo = combo+1
-                        else :
-                            combo = 0
-                elif case == 1:
-                    win_X = True
-                elif case == 2:
-                    win_O = True
+                        combo = 0
+        elif case == 1:
+            win_X = True
+        elif case == 2:
+            win_O = True
                     
 #____________(4.2)Verification ligne horizontale
     for i in range (0,taille_y):
@@ -62,40 +69,52 @@ def vérification():
         if combo < combo_max:
             combo=0
             for j in range (0,taille_x):
-                if combo < combo_max and win_O == False and win_X == False:
-                    case = tableau[i*taille_x+j]
-                    if combo == 0 :
-                        if case != 0 :
-                            combo = combo+1
+                case = tableau[i*taille_x+j]
+                if combo == 0 :
+                    if case != 0 :
+                        combo = combo+1
+                else :
+                    if case == tableau[case-1] :
+                        combo = combo+1
                     else :
-                        if case == tableau[case-1] :
-                            combo = combo+1
-                        else :
-                            combo = 0
-                elif case == 1:
-                    win_X = True
-                elif case == 2:
-                    win_O = True
+                        combo = 0
+        elif case == 1:
+            win_X = True
+        elif case == 2:
+            win_O = True
 
 #____________(4.3)Verification diagonale
-    for i in range (0,taille_x-(taille_y-1)):#on peut pas jouer avec des tableaux verticaux
+    
+    
+    for i in range (0,grand-(petit-1)):
         for j in range (0,taille_x):
             if combo < combo_max:
                 combo=0
-                if combo < combo_max and win_O == False and win_X == False:
-                    case = tableau[i+j*taille_x+j]
-                    if combo == 0 :
-                        if case != 0 :
-                            combo = combo+1
+                case = tableau[i+j*taille_x+j]
+                if combo == 0 :
+                    if case != 0 :
+                        combo = combo+1
+                else :
+                    if case == tableau[case-1] :
+                        combo = combo+1
                     else :
-                        if case == tableau[case-1] :
-                            combo = combo+1
-                        else :
-                            combo = 0
-                elif case == 1:
-                    win_X = True
-                elif case == 2:
-                    win_O = True
+                        combo = 0
+        for j in range (0,taille_x):
+            if combo < combo_max:
+                combo=0
+                case = tableau[i+j*taille_x+j]
+                if combo == 0 :
+                    if case != 0 :
+                        combo = combo+1
+                else :
+                    if case == tableau[case-1] :
+                        combo = combo+1
+                    else :
+                        combo = 0
+            elif case == 1:
+                win_X = True
+            elif case == 2:
+                win_O = True
 
 #______(5)Verification grille complète
     fini = True
@@ -115,7 +134,7 @@ while win_O == False and win_X == False and fini == False :
         print("Au tour du joueur X")
         jeu(1)
         tour = True
-
+    verification()
 if win_O == True:
     print("Le joueur O à gagné !")
 elif win_X == True :

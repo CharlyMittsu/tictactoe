@@ -83,31 +83,32 @@ def verification():
     
     
     for i in range (0,grand-(combo_max-1)):#"petit" pour les tableaux verticaux
-        for j in range (0,taille_x):
-            if combo < combo_max:
-                combo=0
-                case = tableau[i+j*taille_x+j]
-                if combo == 0 :
-                    if case != 0 :
-                        combo = combo+1
-                else :
-                    if case == tableau[i+(j-1)*taille_x+j] :
-                        combo = combo+1
+        if combo < combo_max:
+            for j in range (0,taille_x):
+                if combo < combo_max:
+                    combo=0
+                    case = tableau[i+j*taille_x+j]
+                    if combo == 0 :
+                        if case != 0 :
+                            combo = combo+1
                     else :
-                        combo = 0
-        for j in range (0,taille_x):
-            if combo < combo_max:
-                combo=0
-                case = tableau[i+combo_max+j*taille_x-j]
-                if combo == 0 :
-                    if case != 0 :
-                        combo = combo+1
-                else :
-                    if case == tableau[i+combo_max+(j-1)*taille_x-j] :
-                        combo = combo+1
+                        if case == tableau[i+(j-1)*taille_x+j] :
+                            combo = combo+1
+                        else :
+                            combo = 0
+            for j in range (0,taille_x):
+                if combo < combo_max:
+                    combo=0
+                    case = tableau[i+combo_max+j*taille_x-j]
+                    if combo == 0 :
+                        if case != 0 :
+                            combo = combo+1
                     else :
-                        combo = 0
-    if combo < combo_max:
+                        if case == tableau[i+combo_max+(j-1)*taille_x-j] :
+                            combo = combo+1
+                        else :
+                            combo = 0
+    if combo == combo_max:
         return (case)
     else :
         return 0        
@@ -138,9 +139,9 @@ while win_O == False and win_X == False and fini == False :
         tour = True
     case = verification()
     if case == 1:
-        Win_X = True
+        win_X = True
     elif case == 2:
-        Win_O = True
+        win_O = True
     fini = complet()
     
 if win_O == True:

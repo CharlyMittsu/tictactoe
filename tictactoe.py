@@ -138,9 +138,9 @@ while win_O == False and win_X == False and fini == False :
         tour = True
     case = verification()
     if case == 1:
-                X = True
+        Win_X = True
     elif case == 2:
-        O = True
+        Win_O = True
     fini = complet()
     
 if win_O == True:

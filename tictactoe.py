@@ -1,11 +1,11 @@
 #______(1)DECLARATIONS DES VARIABLES
 tableau = []
-taille_x = 3
-taille_y = 3
+taille_x = 3 #taille horizontale du tableau
+taille_y = 3 #taille verticale du tableau
 for i in range(taille_x*taille_y) :
     tableau.append(0)
 
-combo_max = 3 #3 pour un tictactoe; 4 pour un puissance 4
+combo_max = 3 #nombre de signe à la suite nécessaire pour gagner
 
 tour = True
 win_X = False

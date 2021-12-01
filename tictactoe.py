@@ -21,7 +21,7 @@ fini = False
 def affichage():#création d'une fonction
     for i in range (0,taille_y):
         for j in range (0,taille_x):
-            case = tableau[i*3+j]
+            case = tableau[i*taille_x+j]
             if case == 1 :
                 print('X','',end='')
             elif case == 2 :
@@ -31,10 +31,10 @@ def affichage():#création d'une fonction
         print ('')#retour à la ligne
 #______(3)TOUR DE JEU
 def jeu(x):
-    choix = -1
-    while choix<0 or choix>8 or tableau[choix]!=0:
+    choix = -1#à chaque fois on met par défaut une case qui n'existe pas pour rentrer dans la boucle
+    while choix<0 or choix>len(tableau)-1 or tableau[choix]!=0:
         choix = int(input("Choissisez une case : "))-1
-        if choix<0 or choix>8 :
+        if choix<0 or choix>len(tableau)-1 :
             print("Cette case n'existe pas !")
         elif tableau[choix]!=0 :
             print("Cette case est déjà prise !")
@@ -81,37 +81,44 @@ def verification():
 
 #____________(4.3)Verification diagonale
     
-    
-    for i in range (0,grand-(combo_max-1)):#"petit" pour les tableaux verticaux
-        if combo < combo_max:
-            for j in range (0,taille_x):
-                if combo < combo_max:
-                    combo=0
-                    case = tableau[i+j*taille_x+j]
-                    if combo == 0 :
-                        if case != 0 :
-                            combo = combo+1
-                    else :
-                        if case == tableau[i+(j-1)*taille_x+j] :
-                            combo = combo+1
-                        else :
-                            combo = 0
-            for j in range (0,taille_x):
-                if combo < combo_max:
-                    combo=0
-                    case = tableau[i+combo_max+j*taille_x-j]
-                    if combo == 0 :
-                        if case != 0 :
-                            combo = combo+1
-                    else :
-                        if case == tableau[i+combo_max+(j-1)*taille_x-j] :
-                            combo = combo+1
-                        else :
-                            combo = 0
-    if combo == combo_max:
-        return (case)
-    else :
-        return 0        
+#décalage du code de vérif dans le cas d'un tableau plus grand
+
+    if grand == taille_x :#Pour les tableaux horizontaux ou carré
+        for h in range (0,petit-(combo_max-1)):#parcourir le tableau verticalement
+            if combo < combo_max:
+                for i in range (0,grand-(combo_max-1)):#parcourir le tableau horizontalement
+                    if combo < combo_max:
+
+#vérification diagonale tic tac toe
+
+                        for j in range (0,taille_x):#parcourir le tableau diagonalement de haut en bas
+                            if combo < combo_max:
+                                combo=0
+                                case = tableau[h*taille_x+i+j*taille_x+j]
+                                if combo == 0 :
+                                    if case != 0 :
+                                        combo = combo+1
+                                else :
+                                    if case == tableau[h*taille_x+i+(j-1)*taille_x+j] :
+                                        combo = combo+1
+                                    else :
+                                        combo = 0
+                        for j in range (0,taille_x):#parcourir le tableau diagonalement de bas en haut
+                            if combo < combo_max:
+                                combo=0
+                                case = tableau[h*taille_x+i+(combo_max-j-1)*taille_x+j]
+                                if combo == 0 :
+                                    if case != 0 :
+                                        combo = combo+1
+                                else :
+                                    if case == tableau[h*taille_x+i+(combo_max-j)*taille_x+j-1] :
+                                        combo = combo+1
+                                    else :
+                                        combo = 0
+            if combo == combo_max:
+                return (case)
+            else :
+                return 0        
     
 
 #______(5)Verification grille complète

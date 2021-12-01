@@ -1,7 +1,7 @@
 #______(1)DECLARATIONS DES VARIABLES
 tableau = []
-taille_x = 4
-taille_y = 4
+taille_x = 3
+taille_y = 3
 for i in range(taille_x*taille_y) :
     tableau.append(0)
 

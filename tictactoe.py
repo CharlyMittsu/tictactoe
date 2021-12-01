@@ -110,10 +110,10 @@ def verification():
                                 combo = combo+1
                             else :
                                 combo = 0
-        if combo == combo_max:
-            return (case)
-        else :
-            return 0        
+    if combo == combo_max:
+        return (case)
+    else :
+        return 0        
     
 
 #______(5)Verification grille complète

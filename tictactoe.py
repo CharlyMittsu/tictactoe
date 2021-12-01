@@ -1,15 +1,10 @@
 #______(1)DECLARATIONS DES VARIABLES
 tableau = []
-taille_x = 3
-taille_y = 3
+taille_x = 4
+taille_y = 4
 for i in range(taille_x*taille_y) :
     tableau.append(0)
-if taille_x >= taille_y:#determiner si le tableau est horizontale/carrée ou verticale
-    grand = taille_x
-    petit = taille_y
-else :
-    grand = taille_y
-    petit = taille_x
+
 combo_max = 3 #3 pour un tictactoe; 4 pour un puissance 4
 
 tour = True
@@ -50,15 +45,16 @@ def verification():
         if combo < combo_max:
             combo=0
             for j in range (0,taille_y):
-                case = tableau[j*taille_x+i]
-                if combo == 0 :
-                    if case != 0 :
-                        combo = combo+1
-                else :
-                    if case == tableau[(j-1)*taille_x+i] :
-                        combo = combo+1
+                if combo<combo_max :
+                    case = tableau[j*taille_x+i]
+                    if combo == 0 :
+                        if case != 0 :
+                            combo = combo+1
                     else :
-                        combo = 0
+                        if case == tableau[(j-1)*taille_x+i] :
+                            combo = combo+1
+                        else :
+                            combo = 0
 
         
                     
@@ -68,57 +64,56 @@ def verification():
         if combo < combo_max:
             combo=0
             for j in range (0,taille_x):
-                case = tableau[i*taille_x+j]
-                if combo == 0 :
-                    if case != 0 :
-                        combo = combo+1
-                else :
-                    if case == tableau[i*taille_x+j-1] :
-                        combo = combo+1
+                if combo<combo_max :
+                    case = tableau[i*taille_x+j]
+                    if combo == 0 :
+                        if case != 0 :
+                            combo = combo+1
                     else :
-                        combo = 0
+                        if case == tableau[i*taille_x+j-1] :
+                            combo = combo+1
+                        else :
+                            combo = 0
 
 
 #____________(4.3)Verification diagonale
     
 #décalage du code de vérif dans le cas d'un tableau plus grand
 
-    if grand == taille_x :#Pour les tableaux horizontaux ou carré
-        for h in range (0,petit-(combo_max-1)):#parcourir le tableau verticalement
-            if combo < combo_max:
-                for i in range (0,grand-(combo_max-1)):#parcourir le tableau horizontalement
-                    if combo < combo_max:
+    for h in range (0,taille_y-(combo_max-1)):#parcourir le tableau verticalement
+        if combo < combo_max:
+            for i in range (0,taille_x-(combo_max-1)):#parcourir le tableau horizontalement
+                if combo < combo_max:
+                    combo=0
 
 #vérification diagonale tic tac toe
 
-                        for j in range (0,taille_x):#parcourir le tableau diagonalement de haut en bas
-                            if combo < combo_max:
-                                combo=0
-                                case = tableau[h*taille_x+i+j*taille_x+j]
-                                if combo == 0 :
-                                    if case != 0 :
-                                        combo = combo+1
-                                else :
-                                    if case == tableau[h*taille_x+i+(j-1)*taille_x+j] :
-                                        combo = combo+1
-                                    else :
-                                        combo = 0
-                        for j in range (0,taille_x):#parcourir le tableau diagonalement de bas en haut
-                            if combo < combo_max:
-                                combo=0
-                                case = tableau[h*taille_x+i+(combo_max-j-1)*taille_x+j]
-                                if combo == 0 :
-                                    if case != 0 :
-                                        combo = combo+1
-                                else :
-                                    if case == tableau[h*taille_x+i+(combo_max-j)*taille_x+j-1] :
-                                        combo = combo+1
-                                    else :
-                                        combo = 0
-            if combo == combo_max:
-                return (case)
-            else :
-                return 0        
+                    for j in range (0,combo_max):#parcourir le tableau diagonalement de haut en bas   
+                        case = tableau[h*taille_x+i+j*taille_x+j]
+                        if combo == 0 :
+                            if case != 0 :
+                                combo = combo+1
+                        else :
+                            if case == tableau[h*taille_x+i+(j-1)*taille_x+j-1] :
+                                combo = combo+1
+                            else :
+                                combo = 0
+                if combo < combo_max:
+                    combo=0                        
+                    for j in range (0,combo_max):#parcourir le tableau diagonalement de bas en haut
+                        case = tableau[h*taille_x+i+(combo_max-j-1)*taille_x+j]
+                        if combo == 0 :
+                            if case != 0 :
+                                combo = combo+1
+                        else :
+                            if case == tableau[h*taille_x+i+(combo_max-j)*taille_x+j-1] :
+                                combo = combo+1
+                            else :
+                                combo = 0
+        if combo == combo_max:
+            return (case)
+        else :
+            return 0        
     
 
 #______(5)Verification grille complète
